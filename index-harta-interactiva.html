@@ -1,0 +1,518 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cracovia — Ghid Obiective</title>
+<style>
+/* layout: header, two stacked map cards, ranked list of stops, then a description card per stop, anchor-linked from the list */
+:root{
+  --bg:#f5f2ea;
+  --paper:#ffffff;
+  --ink:#20261f;
+  --ink-dim:#5c655a;
+  --line:#dcd6c4;
+  --accent:#1c5a4e;
+  --accent-dim:#e4efec;
+  --gold:#b8862e;
+  --gold-dim:#f5ead2;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#181c17; --paper:#20261f; --ink:#eee9db; --ink-dim:#a7ad9d;
+    --line:#39402f; --accent:#6fc2ac; --accent-dim:#233b32; --gold:#e0b559; --gold-dim:#332a15;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#181c17; --paper:#20261f; --ink:#eee9db; --ink-dim:#a7ad9d;
+  --line:#39402f; --accent:#6fc2ac; --accent-dim:#233b32; --gold:#e0b559; --gold-dim:#332a15;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  margin:0;
+  padding-inline:20px;
+  padding-block:32px 64px;
+}
+.wrap{max-width:920px;margin:0 auto;}
+
+header{margin-bottom:36px;}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+h1{
+  font-family:var(--font-display);
+  font-optical-sizing:auto;
+  font-weight:600;
+  font-size:clamp(32px,6vw,52px);
+  line-height:1.05;
+  margin:0 0 12px;
+  text-wrap:balance;
+}
+.lede{
+  color:var(--ink-dim);
+  font-size:16px;
+  line-height:1.55;
+  max-width:60ch;
+  margin:0;
+}
+
+.legend-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:22px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--ink-dim);
+}
+.legend-row span{display:inline-flex;align-items:center;gap:6px;}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none;}
+
+section{margin-bottom:40px;}
+.section-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:14px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:10px;
+}
+.section-head h2{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:20px;
+  margin:0;
+}
+.section-head .note{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--ink-dim);
+  text-align:right;
+}
+
+.maps{display:flex;flex-direction:column;gap:24px;}
+.map-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+}
+.map-card img{display:block;width:100%;height:auto;}
+.map-card figcaption{
+  padding:12px 16px;
+  font-size:13px;
+  color:var(--ink-dim);
+  border-top:1px solid var(--line);
+}
+.map-card figcaption b{color:var(--ink);font-weight:600;}
+
+.controls{
+  display:flex;
+  gap:8px;
+  font-family:var(--font-mono);
+  font-size:12px;
+}
+.controls button{
+  font-family:inherit;
+  font-size:inherit;
+  background:transparent;
+  color:var(--ink-dim);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 14px;
+  cursor:pointer;
+}
+.controls button[aria-pressed="true"]{
+  background:var(--accent-dim);
+  color:var(--accent);
+  border-color:var(--accent);
+}
+
+.list{display:flex;flex-direction:column;gap:10px;}
+.row{
+  display:grid;
+  grid-template-columns:24px 40px 1fr auto;
+  gap:12px;
+  align-items:center;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px 16px;
+}
+.row.is-visited{opacity:.55;}
+.check{
+  width:18px;height:18px;
+  accent-color:var(--accent);
+  cursor:pointer;
+  flex:none;
+}
+.num{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-weight:600;font-size:13px;
+  color:#fff;flex:none;
+}
+.main{min-width:0;}
+.name-line{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;
+}
+a.name{
+  font-weight:600;
+  font-size:15.5px;
+  color:var(--ink);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+}
+a.name:hover{border-bottom-color:var(--accent); color:var(--accent);}
+.row.is-visited a.name{text-decoration:line-through; text-decoration-color:var(--ink-dim);}
+.tag{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  padding:2px 7px;
+  border-radius:5px;
+  border:1px solid var(--line);
+  color:var(--ink-dim);
+  flex:none;
+}
+.tag.tech{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);}
+.meta{
+  margin-top:4px;
+  font-size:13px;
+  color:var(--ink-dim);
+  display:flex;flex-wrap:wrap;
+  gap:4px 12px;
+}
+.meta span{white-space:nowrap;}
+.stat{
+  text-align:right;
+  font-family:var(--font-mono);
+  flex:none;
+}
+.rating{font-size:16px;font-weight:600;color:var(--gold);}
+.price{font-size:12px;color:var(--ink-dim);margin-top:2px;white-space:nowrap;}
+
+.entries{display:flex;flex-direction:column;}
+.entry{
+  scroll-margin-top:16px;
+  padding:26px 0;
+  border-bottom:1px solid var(--line);
+}
+.entry:first-child{padding-top:4px;}
+.entry:last-child{border-bottom:none;}
+.entry-head{
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  margin-bottom:8px;
+}
+.entry-head .num{
+  width:auto;height:auto;border-radius:0;background:none!important;
+  font-family:var(--font-mono);font-weight:600;font-size:14px;
+  color:var(--ink-dim);flex:none;
+}
+.entry-title{flex:1;min-width:0;}
+.entry-title h3{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:22px;
+  margin:0;
+  display:inline;
+}
+.entry-meta{
+  margin-top:4px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--ink-dim);
+  letter-spacing:.01em;
+}
+.entry-meta .rating{color:var(--gold);font-weight:600;}
+.entry p.desc{
+  margin:0;
+  font-size:15px;
+  line-height:1.68;
+  color:var(--ink);
+  max-width:68ch;
+}
+
+.back-to-list{
+  display:inline-block;
+  margin-top:14px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--accent);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+}
+.back-to-list:hover{border-bottom-color:var(--accent);}
+
+.map-pin-label{
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
+  color:#fff;
+  font-family:var(--font-mono);
+  font-weight:600;
+  font-size:11px;
+  text-shadow:0 0 2px rgba(0,0,0,.6);
+}
+.map-pin-label-2line{
+  display:inline-block;
+  text-align:center;
+  line-height:1.05;
+  font-size:9.5px;
+}
+
+footer{
+  margin-top:48px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+  font-size:12.5px;
+  color:var(--ink-dim);
+  font-family:var(--font-mono);
+}
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Kraków · Polonia</div>
+    <h1>Ghid obiective — Cracovia</h1>
+    <p class="lede">13 obiective evaluate, cu tip de vizită, durată estimată și preț de intrare, plus hărțile cu poziția fiecăruia. Bifează pe măsură ce le vizitezi.</p>
+    <div class="legend-row">
+      <span><span class="dot" style="background:#c0392b"></span>4.8–5.0</span>
+      <span><span class="dot" style="background:#e67e22"></span>4.3–4.7</span>
+      <span><span class="dot" style="background:#f1c40f"></span>3.8–4.2</span>
+      <span><span class="dot" style="background:#7f8c8d"></span>&lt;3.8</span>
+      <span><span class="tag tech" style="padding:2px 7px;">tech</span> muzee de inginerie/tehnologie</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>Hartă</h2>
+      <div class="note">click pe un marker pentru descriere</div>
+    </div>
+    <div id="map" class="map-card" style="height:480px;"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Obiective</h2>
+      <div class="controls" role="group" aria-label="Sortare">
+        <button type="button" data-sort="rating" aria-pressed="true">rating</button>
+        <button type="button" data-sort="num" aria-pressed="false">nr. hartă</button>
+      </div>
+    </div>
+    <div class="list" id="list"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Descrieri</h2>
+      <div class="note">click pe un nume din listă pentru a ajunge aici</div>
+    </div>
+    <div class="entries" id="entries"></div>
+  </section>
+
+  <footer>
+    Prețuri și durate orientative, 2026 · bifele se salvează doar în acest browser
+  </footer>
+
+</div>
+
+<script>
+const DATA = [
+  {n:1, lat:50.0614956, lon:19.9371133, name:"Rynek Główny",               rating:5.0, kind:"Exterior",            time:"30–45 min", price:"Gratis",                 tech:false,
+    desc:"Rynek Główny este piața medievală centrală a Cracoviei, cu o suprafață de circa 10 acri — cea mai mare piață medievală păstrată din Europa. În mijlocul ei se ridică Sukiennice, hala renascentistă a negustorilor de postav din secolul XVI, iar la unul dintre capete stă bazilica gotică Sf. Maria, cu cele două turnuri asimetrice, rezultat al rivalității dintre familiile nobiliare care le-au finanțat separat. Piața și restul centrului istoric au fost primul sit din Polonia înscris pe lista UNESCO, în 1978, tocmai pentru că zona a scăpat aproape neatinsă de bombardamentele celui de-al Doilea Război Mondial, spre deosebire de Varșovia. Străzile pietruite din jur sunt pietonale și pline de terase, birje trase de cai și artiști stradali, ceea ce o face punctul de plecare firesc pentru orice zi petrecută în Cracovia."},
+  {n:2, lat:50.0616547, lon:19.9394485, name:"St. Mary's Basilica",         rating:5.0, kind:"Interior",            time:"20–30 min", price:"~20 PLN (+20 PLN turn)", tech:false,
+    desc:"Biserica actuală s-a ridicat pe locul unei biserici romanice din secolul XIII, iar forma gotică pe care o vedem azi a fost finalizată la începutul anilor 1400. Interiorul este dominat de altarul sculptat de Veit Stoss (Wit Stwosz), cel mai mare altar gotic din lemn din lume — 13 metri înălțime și 11 metri lățime — cu scene din viața lui Isus și a Fecioarei Maria. În fiecare oră, un trompetist cântă Hejnał mariacki din turnul mai înalt, o melodie care se oprește brusc la mijloc; legenda spune că amintește de trompetistul lovit de o săgeată tătară în timp ce dădea alarma, în secolul XIII. Intrarea pentru rugăciune, prin portalul dinspre piață, e gratuită, dar accesul la naos și la altar se face printr-o intrare separată, cu bilet, iar urcarea în turn e o experiență distinctă, cu program limitat sezonier."},
+  {n:3, lat:50.0547467, lon:19.9361073, name:"Wawel Royal Castle",          rating:5.0, kind:"Interior + Exterior", time:"2–3 h",     price:"47–95 PLN / secțiune", tech:false,
+    desc:"Wawel a fost reședința regilor Poloniei timp de aproape 500 de ani, până când capitala s-a mutat la Varșovia în 1596, și rămâne locul cu cea mai densă încărcătură istorică din oraș. Complexul de pe deal cuprinde curtea interioară renascentistă, apartamentele regale, Tezaurul Coroanei și Armuria, plus catedrala unde erau încoronați și înmormântați regii, cu celebra Capelă Sigismund și acoperișul ei auriu. Biletele nu se vând ca intrare unică, ci pe secțiuni — castel, tezaur, subteran arheologic — așa că merită ales dinainte ce anume vrei să vezi, mai ales în sezonul aglomerat. Sub deal se află și Smocza Jama, peștera legendarului balaur al Cracoviei, o oprire scurtă și distractivă după vizita propriu-zisă."},
+  {n:4, lat:50.0517373, lon:19.9446185, name:"Kazimierz",                   rating:4.5, kind:"Exterior",            time:"2–3 h",     price:"Gratis",                 tech:false,
+    desc:"Kazimierz a fost inițial un oraș separat, întemeiat în secolul XIV, care a devenit centrul vieții evreiești din Cracovia timp de secole, până la al Doilea Război Mondial. Cartierul păstrează șapte sinagogi istorice, printre care Stara Synagoga (cea mai veche din Polonia) și Synagoga Remuh, alături de cimitirul evreiesc adiacent. Astăzi este și cel mai viu cartier al orașului seara: cafenele, baruri ascunse în curți interioare, street art și restaurante cu specific evreiesc și polonez, concentrate în special în jurul Plac Nowy. Diferența de atmosferă față de Old Town e evidentă — mai puțin turistic, mai autentic, cu ritmul unui cartier locuit cu adevărat."},
+  {n:5, lat:50.0474554, lon:19.9617094, name:"Schindler's Factory",         rating:4.5, kind:"Interior",            time:"1.5–2 h",   price:"60 PLN",                 tech:false,
+    desc:"Muzeul ocupă clădirile fostei fabrici de emailerie a lui Oskar Schindler, dar expoziția permanentă depășește povestea unui singur om: reconstituie viața Cracoviei sub ocupația nazistă, din 1939 până la eliberare, cu străzi recreate, sunet ambiental și artefacte originale care te plasează efectiv în oraș acelor ani. Face parte din „Memory Trail” al orașului, alături de muzeul din Farmacia Vulturul (fosta farmacie din ghetou) și expoziția de pe strada Pomorska, unde a funcționat închisoarea Gestapoului — un bilet combinat acoperă toate trei. E unul dintre cele mai vizitate și mai bine puse la punct muzee despre al Doilea Război Mondial din Polonia, motiv pentru care se recomandă bilete cumpărate din timp."},
+  {n:6, lat:50.0495064, lon:19.9472921, name:"Museum of Eng. & Tech.",      rating:4.5, kind:"Interior",            time:"2–2.5 h",   price:"35 PLN (28 redus)",      tech:true,
+    desc:"Muzeul ocupă cel mai vechi depou de tramvaie al Cracoviei, construit la finalul secolului XIX pentru tramvaiele trase de cai și extins ulterior pentru cele electrice. Expoziția permanentă, „City: Technosensitivity”, spune povestea cronologică a gândirii inginerești și a impactului ei asupra vieții urbane, cu peste 600 de exponate: conducte de lemn din secolul XVI, fonograful lui Edison, primele telefoane poloneze, mașini de cifrat, radiouri de epocă și un Polski Fiat 508. Are și o zonă LAB interactivă unde vizitatorii pot experimenta direct principiile fizice din spatele exponatelor, motiv pentru care a fost distins cu un „Oscar al muzeelor” pentru reamenajarea recentă, gândită să atragă deopotrivă familii și adulți."},
+  {n:7, lat:50.0681948, lon:19.9972963, name:"Lem Garden of Exp.",          rating:4.0, kind:"Exterior",            time:"1.5–2 h",   price:"21 PLN (17 redus)",      tech:true,
+    desc:"Parc senzorial în aer liber, întins pe circa 6 hectare în Parcul Aviatorilor Polonezi, numit în onoarea lui Stanisław Lem, cel mai cunoscut autor SF al Poloniei (autorul romanului „Solaris”). Găzduiește peste 100 de instalații interactive care demonstrează fenomene din mecanică, optică, hidrostatică, magnetism și acustică — de la leagănul lui Newton la un vârtej de apă și o rură vocală. Funcționează sezonier, de la mijlocul lui aprilie până în octombrie, fiind o filială a Museum of Eng. & Tech.; iarna, în același spațiu, se deschide Ogród Świateł, o versiune luminată a parcului."},
+  {n:8, lat:50.062005, lon:19.9377768, name:"Rynek Underground",           rating:4.0, kind:"Interior",            time:"1–1.5 h",   price:"45 PLN",                 tech:false,
+    desc:"Deschis în 2010, după cinci ani de săpături arheologice care au costat aproximativ 38 de milioane de zloți, muzeul se află la peste 4 metri sub Piața Centrală și expune vestigii ale orașului medieval din secolele XII–XIII: fundații de tarabe comerciale, străzi și morminte descoperite pe loc. Tehnologia modernă — ecrane tactile, holograme, proiecții — recreează atmosfera unui oraș medieval aglomerat, iar traseul se încheie cu un scurt film despre istoria orașului. E unul dintre cele mai vizitate muzee din Polonia, ceea ce înseamnă cozi frecvente; biletele au ore de intrare fixe, așa că rezervarea din timp ajută."},
+  {n:9, lat:50.054915, lon:19.8933537, name:"Kościuszko Mound",            rating:4.0, kind:"Interior + Exterior", time:"1.5–2 h",   price:"18 PLN",                 tech:false,
+    desc:"Movila a fost ridicată între 1820 și 1823, la trei ani după moartea lui Tadeusz Kościuszko, eroul național polonez care a luptat și alături de George Washington în Războiul de Independență american. În anii 1850, autoritățile austriece au construit în jurul ei o citadelă din cărămidă, ca parte a fortificațiilor orașului; clădirile fostului fort găzduiesc azi un mic muzeu dedicat vieții și luptelor lui Kościuszko. Urcarea până în vârful movilei, înaltă de 34 de metri, oferă o panoramă asupra întregii Cracovii, iar pe zile senine se pot zări chiar Munții Tatra la orizont. La baza movilei se află o grădină cu trandafiri special dedicați lui Kościuszko."},
+  {n:10, lat:50.0647985, lon:19.9403381, name:"Czartoryski Museum",          rating:4.0, kind:"Interior",            time:"1.5–2 h",   price:"65 PLN",                 tech:false,
+    desc:"Fondat în 1796 de prințesa Izabela Czartoryska, inițial la Puławy și mutat ulterior la Cracovia, este considerat cel mai vechi muzeu din Polonia. Colecția sa este cea mai valoroasă din țară, având în centru „Lady with an Ermine” („Dama cu hermină”) de Leonardo da Vinci — unul dintre doar patru portrete feminine cunoscute pictate de el — alături de „Peisaj cu bunul samaritean” de Rembrandt. Pe lângă pictură, muzeul expune și antichități egiptene, grecești și romane, arme și armuri, artă decorativă europeană din cinci secole, răspândite pe mai multe clădiri istorice legate între ele. Intrarea e gratuită marțea, ceea ce înseamnă și cele mai mari cozi ale săptămânii."},
+  {n:11, lat:50.0617012, lon:19.9373511, name:"Sukiennice (Cloth Hall)",     rating:3.5, kind:"Interior",            time:"30–45 min", price:"Gratis",                 tech:false,
+    desc:"Clădirea actuală este reconstrucția renascentistă, din secolul XVI, a unei hale medievale de comerț cu postav, aflată chiar în mijlocul pieței Rynek Główny. La parter, galeria boltită funcționează și azi ca piață — tarabe cu bijuterii din chihlimbar baltic, sculptură în lemn și suveniruri poloneze — iar la etaj se află Galeria de Artă Poloneză a secolului XIX, parte din Muzeul Național, cu picturi din perioada de tranziție dintre realism și impresionism. Multă lume trece pur și simplu prin arcadă spre magazine, fără să realizeze că sus se ascunde o galerie de artă propriu-zisă, liniștită și rareori aglomerată."},
+  {n:12, lat:50.072447, lon:20.0382225, name:"Nowa Huta",                   rating:3.5, kind:"Exterior",            time:"2–3 h",     price:"Gratis",                 tech:false,
+    desc:"Construit începând din 1949 ca oraș-model al regimului comunist, Nowa Huta a fost ridicat lângă un combinat siderurgic uriaș, gândit să fie „orașul ideal al muncitorului”. Inițial planificat fără nicio biserică, cartierul a devenit ulterior un simbol al rezistenței față de regim, după ce locuitorii au obținut, prin proteste îndelungate, construirea uneia — un episod important din istoria mișcării Solidarność. Bulevardele largi și arhitectura monumentală realist-socialistă contrastează total cu centrul medieval al Cracoviei, oferind o fațetă complet diferită a orașului; se ajunge ușor cu tramvaiul liniile 4 sau 10 din centru."},
+  {n:13, lat:50.0648558, lon:19.9413527, name:"Barbican / Floriańska",       rating:3.0, kind:"Exterior",            time:"20–30 min", price:"~14 PLN",                tech:false,
+    desc:"Ridicat în 1498, Barbicanul din Cracovia este unul dintre puținele fortificații de acest tip păstrate în Europa — un avanpost circular gotic, construit inițial pentru a apăra Poarta Floriana, cu care era conectat printr-un pasaj acoperit peste șanțul de apărare. Astăzi face parte din traseul zidurilor vechi ale orașului, alături de Planty, parcul verde care încercuiește Old Town pe locul fostelor fortificații demolate la începutul secolului XIX. De aici pornește Floriańska, strada principală a „Drumului Regal”, folosită istoric de regi la intrarea ceremonială în oraș și, azi, ruta pietonală cea mai directă dinspre gara centrală spre Rynek Główny."},
+];
+
+function colorFor(r){
+  if (r >= 4.8) return "#c0392b";
+  if (r >= 4.3) return "#e67e22";
+  if (r >= 3.8) return "#f1c40f";
+  return "#7f8c8d";
+}
+
+const STORAGE_KEY = "krakow-guide-visited";
+
+function loadVisited(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){
+    return {};
+  }
+}
+
+function saveVisited(state){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }catch(e){
+    /* private window or blocked storage: state just won't persist */
+  }
+}
+
+let visited = loadVisited();
+let markersByN = {};
+
+function styleMarker(marker, it, isVisited){
+  marker.setStyle({
+    radius: isVisited ? 13 : 11,
+    fillColor: isVisited ? "#27ae60" : colorFor(it.rating),
+    fillOpacity: isVisited ? 0.9 : 1,
+  });
+  marker.setTooltipContent(
+    isVisited
+      ? `<span class="map-pin-label-2line">${it.n}<br>&#10003;</span>`
+      : String(it.n)
+  );
+}
+
+function setVisited(n, isVisited){
+  visited[n] = isVisited;
+  saveVisited(visited);
+  document.querySelectorAll(`[data-n="${n}"]`).forEach(el=>{
+    if (el.classList.contains("check")) el.checked = isVisited;
+  });
+  document.querySelectorAll(`.row[data-row="${n}"]`).forEach(el=>el.classList.toggle("is-visited", isVisited));
+  const marker = markersByN[n];
+  if (marker){
+    const it = DATA.find(d => d.n === n);
+    styleMarker(marker, it, isVisited);
+  }
+}
+
+function render(sortBy){
+  const rows = [...DATA].sort((a,b)=> sortBy === "rating" ? (b.rating - a.rating) : (a.n - b.n));
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  for (const it of rows){
+    const isVisited = !!visited[it.n];
+    const row = document.createElement("div");
+    row.className = "row" + (isVisited ? " is-visited" : "");
+    row.dataset.row = it.n;
+    row.innerHTML = `
+      <input type="checkbox" class="check" data-n="${it.n}" ${isVisited ? "checked" : ""} aria-label="Vizitat: ${it.name}">
+      <div class="num" style="background:${colorFor(it.rating)}">${it.n}</div>
+      <div class="main">
+        <div class="name-line">
+          <a class="name" href="#obj-${it.n}">${it.name}</a>
+          <span class="tag">${it.kind}</span>
+          ${it.tech ? '<span class="tag tech">tech</span>' : ''}
+        </div>
+        <div class="meta"><span>${it.time}</span></div>
+      </div>
+      <div class="stat">
+        <div class="rating">${it.rating.toFixed(1)}</div>
+        <div class="price">${it.price}</div>
+      </div>
+    `;
+    row.querySelector(".check").addEventListener("change", (e)=> setVisited(it.n, e.target.checked));
+    list.appendChild(row);
+  }
+}
+
+function renderEntries(){
+  const rows = [...DATA].sort((a,b)=> a.n - b.n);
+  const wrap = document.getElementById("entries");
+  wrap.innerHTML = "";
+  for (const it of rows){
+    const entry = document.createElement("article");
+    entry.className = "entry";
+    entry.id = `obj-${it.n}`;
+    entry.dataset.entry = it.n;
+    entry.innerHTML = `
+      <div class="entry-head">
+        <div class="num">${String(it.n).padStart(2,"0")}</div>
+        <div class="entry-title">
+          <h3>${it.name}</h3>
+          <div class="entry-meta"><span class="rating">${it.rating.toFixed(1)}</span> · ${it.kind}${it.tech ? " · tech" : ""} · ${it.time} · ${it.price}</div>
+        </div>
+      </div>
+      <p class="desc">${it.desc}</p>
+      <a class="back-to-list" href="#list">&uarr; înapoi la listă</a>
+    `;
+    wrap.appendChild(entry);
+  }
+}
+
+document.querySelectorAll(".controls button").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".controls button").forEach(b=>b.setAttribute("aria-pressed","false"));
+    btn.setAttribute("aria-pressed","true");
+    render(btn.dataset.sort);
+  });
+});
+
+
+function initMap(){
+  const map = L.map("map");
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
+    attribution: "Tiles &copy; Esri",
+    maxZoom: 19,
+  }).addTo(map);
+
+  const markers = [];
+  for (const it of DATA){
+    const marker = L.circleMarker([it.lat, it.lon], {
+      radius: 11,
+      weight: 2,
+      color: "#fff",
+    }).addTo(map);
+    marker.bindTooltip(String(it.n), {permanent:true, direction:"center", className:"map-pin-label"});
+    marker.bindPopup(`<b>${it.name}</b><br>★ ${it.rating.toFixed(1)} · ${it.kind}<br><a href="#obj-${it.n}">Vezi descrierea &rarr;</a>`);
+    styleMarker(marker, it, !!visited[it.n]);
+    markersByN[it.n] = marker;
+    markers.push(marker);
+  }
+  map.fitBounds(L.featureGroup(markers).getBounds(), {padding:[28,28]});
+}
+
+render("rating");
+renderEntries();
+initMap();
+</script>
+
+</body></html>
